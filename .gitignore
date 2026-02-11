@@ -1,0 +1,15 @@
+# PDF files (large binary files from source documents)
+*.pdf
+
+# Text extracts from PDFs
+handbook.txt
+cases.txt
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
