@@ -1,5 +1,7 @@
 # Seedance 2.0 Prompt Writing Skills
 
+[中文点我](README-zh.md)
+
 Claude Code skills for writing effective video generation prompts for [Jimeng Seedance 2.0](https://jimeng.jianying.com/), ByteDance's multimodal AI video generation model.
 
 ## Skills
