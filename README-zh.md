@@ -8,20 +8,24 @@
 
 ## 安装
 
-**一行命令**（通过 [skills.sh](https://skills.sh/)）：
+### 方式 A：手动复制（推荐）
+
+克隆或下载本仓库，然后将技能文件复制到 Claude skills 目录：
+
+```bash
+mkdir -p ~/.claude/skills
+
+# 中文版
+cp zh/SKILL.md ~/.claude/skills/seedance-prompt-zh.md
+
+# 英文版
+cp SKILL.md ~/.claude/skills/seedance-prompt-en.md
+```
+
+### 方式 B：通过 skills CLI
 
 ```bash
 npx skills add dexhunter/seedance2-skill
-```
-
-**或手动安装：**
-
-```bash
-# 中文版
-curl -o ~/.claude/skills/seedance-prompt-zh.md https://raw.githubusercontent.com/dexhunter/seedance2-skill/main/zh/SKILL.md
-
-# 英文版
-curl -o ~/.claude/skills/seedance-prompt-en.md https://raw.githubusercontent.com/dexhunter/seedance2-skill/main/SKILL.md
 ```
 
 然后让你的 AI 代理帮你撰写 Seedance 2.0 视频提示词即可。

@@ -8,20 +8,24 @@ Covers input constraints, @ reference syntax, camera language, prompt structure 
 
 ## Install
 
-**One command** (via [skills.sh](https://skills.sh/)):
+### Option A: Manual copy (recommended)
+
+Clone or download this repository, then copy the skill file(s) to your Claude skills directory:
+
+```bash
+mkdir -p ~/.claude/skills
+
+# English
+cp SKILL.md ~/.claude/skills/seedance-prompt-en.md
+
+# Chinese
+cp zh/SKILL.md ~/.claude/skills/seedance-prompt-zh.md
+```
+
+### Option B: Via skills CLI
 
 ```bash
 npx skills add dexhunter/seedance2-skill
-```
-
-**Or manually:**
-
-```bash
-# English
-curl -o ~/.claude/skills/seedance-prompt-en.md https://raw.githubusercontent.com/dexhunter/seedance2-skill/main/SKILL.md
-
-# Chinese
-curl -o ~/.claude/skills/seedance-prompt-zh.md https://raw.githubusercontent.com/dexhunter/seedance2-skill/main/zh/SKILL.md
 ```
 
 Then ask your AI agent to help you write a Seedance 2.0 video prompt.
