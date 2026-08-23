@@ -301,6 +301,23 @@ When a user asks you to write a Seedance 2.0 prompt, follow this process:
 5. **Check constraints**: Verify total files ≤ 12, no real human faces, durations within limits
 6. **Optimize**: Remove ambiguity, ensure each @reference has a clear role
 
+### Optional Atlas Cloud execution
+
+Prompt writing is the default behavior. Only submit a generation job when the user explicitly asks to execute the prompt and approves the current Atlas Cloud quote.
+
+1. Run a local, non-billable preview. Repeat `--image`, `--video`, or `--audio` for each reference:
+
+   ```bash
+   python scripts/atlas_generate.py --prompt 'Use @Image1 as the opening frame' \
+     --image ./opening.png --duration 5 --resolution 720p --dry-run
+   ```
+
+2. Read the live Atlas model catalog and schema, present the current price and final payload, and obtain explicit approval. Do not treat login or API-key access as spending approval.
+3. Set `ATLASCLOUD_API_KEY` in the environment, then rerun the reviewed command with `--confirm-submit`. The script sends exactly one generation `POST`; it never retries that request. Only prediction `GET` requests use bounded backoff.
+4. Return the prediction ID and output URL. A failed or uncertain submission must be reported instead of resubmitted.
+
+With no references, the script selects `bytedance/seedance-2.0/text-to-video`. With any image, video, or audio reference, it selects `bytedance/seedance-2.0/reference-to-video` and converts this skill's `@Image1`, `@Video1`, and `@Audio1` syntax to Atlas's numbered-reference syntax. Local media is embedded as a data URL; HTTPS media URLs are passed through.
+
 ---
 
 ## Common Mistakes to Avoid
