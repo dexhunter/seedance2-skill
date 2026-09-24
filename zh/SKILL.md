@@ -434,3 +434,20 @@ Seedance 2.0 通过 `@` 来指定每个素材的用途，这是提示词撰写�
    - 添加风格修饰词
 5. **检查约束**：确认总文件数 ≤ 12、无写实人脸、时长在限制范围内
 6. **优化打磨**：消除歧义，确保每个 @ 引用都有明确的作用说明
+
+### 可选的 Atlas Cloud 执行流程
+
+默认只撰写提示词。仅当用户明确要求执行，并确认 Atlas Cloud 当前报价后，才提交生成任务。
+
+1. 先执行本地、无计费的预览。每个参考素材分别重复使用 `--image`、`--video` 或 `--audio`：
+
+   ```bash
+   python scripts/atlas_generate.py --prompt '使用 @图片1 作为首帧' \
+     --image ./opening.png --duration 5 --resolution 720p --dry-run
+   ```
+
+2. 实时读取 Atlas 模型目录与 schema，展示当前价格和最终请求参数，并取得用户明确确认。登录或已有 API Key 不代表用户同意付费。
+3. 通过环境变量设置 `ATLASCLOUD_API_KEY`，在已审核命令后添加 `--confirm-submit`。脚本只发送一次生成 `POST`，不会自动重试；只有查询 prediction 的 `GET` 使用有界退避。
+4. 返回 prediction ID 和输出 URL。提交失败或结果不确定时，应如实报告，禁止再次提交。
+
+没有参考素材时，脚本使用 `bytedance/seedance-2.0/text-to-video`；只要包含图片、视频或音频参考，就使用 `bytedance/seedance-2.0/reference-to-video`，并将本技能中的 `@图片1`、`@视频1`、`@音频1` 转换为 Atlas 的编号引用语法。本地素材会编码为 data URL，HTTPS 素材链接则直接传递。
